@@ -54,11 +54,6 @@ namespace AccToggle
             SetToggleStateTranslation(toggleState);
         }
 
-        private void toggleState_Click(object sender, RoutedEventArgs e)
-        {
-            viewModel.IsEnabled = (toggleState.IsChecked == true) ? true : false;
-        }
-
         private void grid_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri("/pageAbout.xaml", UriKind.Relative));

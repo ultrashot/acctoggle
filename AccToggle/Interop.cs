@@ -58,7 +58,7 @@ namespace InteropSvc
             {
                 if (Initialize() == false)
                 {
-                    throw new Exception("Cannot instanciate Interop Library");
+                    throw new Exception("Cannot instantiate Interop Library");
                 }
             }
         }
