@@ -20,13 +20,13 @@ namespace AccToggle
         {
             get
             {
-                uint result = InteropSvc.Interop.Instance.GetPower("ACC1:", 1);
+                uint result = InteropSvc.InteropLib.Instance.GetPower("ACC1:", 1);
                 return (result == 4) ? false : true;
             }
             set
             {
-                InteropSvc.Interop.Instance.EnableUiOrientationChange(value);
-                InteropSvc.Interop.Instance.SetPower("ACC1:", 1, (value == true) ? 0U : 4U);
+                InteropSvc.InteropLib.Instance.EnableUiOrientationChange(value);
+                InteropSvc.InteropLib.Instance.SetPower("ACC1:", 1, (value == true) ? 0U : 4U);
                 OnChange("IsEnabled");
                 if (OnEnabled != null)
                 {

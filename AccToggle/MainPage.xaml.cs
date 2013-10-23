@@ -18,8 +18,8 @@ namespace AccToggle
         public MainPage()
         {
             InitializeComponent();
-            InteropSvc.Interop.Initialize();
-            if (InteropSvc.Interop.Instance.HasRootAccess() == false)
+            InteropSvc.InteropLib.Initialize();
+            if (InteropSvc.InteropLib.Instance.HasRootAccess() == false)
             {
                 MessageBox.Show(LocalizedResources.NoRootAccess, LocalizedResources.Error, MessageBoxButton.OK);
                 throw new Exception("Quit");

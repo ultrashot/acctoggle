@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace InteropSvc
 {
-    internal class Interop
+    internal class InteropLib
     {
         public const uint HKEY_CLASSES_ROOT = 0x80000000;
         public const uint HKEY_CURRENT_USER = 0x80000001;
@@ -50,9 +50,22 @@ namespace InteropSvc
         }
 
         /// <summary>
+        /// Returns TRUE if application has root permissions
+        /// </summary>
+        /// <returns></returns>
+        public static bool HasRootAccess()
+        {
+            if (_checkInstance() == false)
+            {
+                return false;
+            }
+            return Instance.HasRootAccess();
+        }
+
+        /// <summary>
         /// Checking if instance is up and running, creating new instance if it isn't.
         /// </summary>
-        private static void _checkInstance()
+        private static bool _checkInstance()
         {
             if (_instance == null)
             {
@@ -61,6 +74,7 @@ namespace InteropSvc
                     throw new Exception("Cannot instantiate Interop Library");
                 }
             }
+            return true;
         }
 
 
@@ -263,6 +277,7 @@ namespace InteropSvc
 	        void SetDataEnabled(uint mode);
 	        void GetRadioStates(out uint bWifi, out uint bPhone, out uint bBT);
 	        void SetRadioState(uint dwDevice, uint dwState, uint sync);
+
             void ApplySkSettings();
 
             void Unk1();
@@ -275,7 +290,6 @@ namespace InteropSvc
 
             [return: MarshalAs(UnmanagedType.Bool)]
             bool SetPower([MarshalAs(UnmanagedType.BStr)]string device, uint flags, uint state);
-
 
             uint File_CreateFile([MarshalAs(UnmanagedType.BStr)] string processName, uint dwDesiredAccess, uint dwShareMode, uint dwCreationDisposition);
             uint File_GetSize(uint hFile);
@@ -290,26 +304,26 @@ namespace InteropSvc
             void AddRingtoneFile(string fileName, string name, int isProtected, int setAsRingtone);
             void AddMusicFile(
                  [MarshalAs(UnmanagedType.BStr)] string pwszPathToFile,
-                 int iTrackNumber,                           
+                 int iTrackNumber,
                  [MarshalAs(UnmanagedType.BStr)] string pwszTrackTitle,
-                 int iTrackDurationMSec,                     
-                 [MarshalAs(UnmanagedType.BStr)] string pwszTrackArtistName,                    
-                 [MarshalAs(UnmanagedType.BStr)] string pwszTrackGenreTitle,                    
-                 [MarshalAs(UnmanagedType.BStr)] string pwszAlbumTitle,                         
-                 [MarshalAs(UnmanagedType.BStr)] string pwszAlbumArtistName,                    
-                 [MarshalAs(UnmanagedType.BStr)] string pwszAlbumReleaseDateISO8601,            
-                 [MarshalAs(UnmanagedType.BStr)] string pwszPathToAlbumCoverArtImage,            
+                 int iTrackDurationMSec,
+                 [MarshalAs(UnmanagedType.BStr)] string pwszTrackArtistName,
+                 [MarshalAs(UnmanagedType.BStr)] string pwszTrackGenreTitle,
+                 [MarshalAs(UnmanagedType.BStr)] string pwszAlbumTitle,
+                 [MarshalAs(UnmanagedType.BStr)] string pwszAlbumArtistName,
+                 [MarshalAs(UnmanagedType.BStr)] string pwszAlbumReleaseDateISO8601,
+                 [MarshalAs(UnmanagedType.BStr)] string pwszPathToAlbumCoverArtImage,
                  [MarshalAs(UnmanagedType.BStr)] string pwszPathToTrackArtistBackgroundImage,
                  [MarshalAs(UnmanagedType.BStr)] string pwszPathToAlbumArtistBackgroundImage
                 );
-            void RemoveAllDummyMusicFiles();
-            void HideAllDummyMusicFiles();
-            void FlushMediaDatabase();
-            [return: MarshalAs(UnmanagedType.Bool)]
-            bool MoveFile7([MarshalAs(UnmanagedType.BStr)] string oldFileName, [MarshalAs(UnmanagedType.BStr)] string newFileName);
-            void DeleteRegVal(uint hKey, [MarshalAs(UnmanagedType.BStr)] string key, [MarshalAs(UnmanagedType.BStr)] string value);
-            void ReloadMarketplaceConfigs();
-            void EnableUiOrientationChange([MarshalAs(UnmanagedType.Bool)] bool mode);
+           void RemoveAllDummyMusicFiles();
+           void HideAllDummyMusicFiles();
+           void FlushMediaDatabase();
+           [return: MarshalAs(UnmanagedType.Bool)]
+           bool MoveFile7([MarshalAs(UnmanagedType.BStr)] string oldFileName, [MarshalAs(UnmanagedType.BStr)] string newFileName);
+           void DeleteRegVal(uint hKey, [MarshalAs(UnmanagedType.BStr)] string key, [MarshalAs(UnmanagedType.BStr)] string value);
+           void ReloadMarketplaceConfigs();
+           void EnableUiOrientationChange([MarshalAs(UnmanagedType.Bool)] bool mode);
         }
 
     }
