@@ -121,7 +121,7 @@
     <value>about</value>
   </data>
   <data name="AboutDevoted" xml:space="preserve">
-    <value>This project is devoted to S.D.</value>
+    <value> </value>
   </data>
   <data name="AboutNotice" xml:space="preserve">
     <value>This application is provided "AS IS" without any warranties. Author isn't responsible for any damage caused by application usage</value>
